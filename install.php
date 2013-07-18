@@ -21,5 +21,16 @@
 
 	if (empty($context['uninstalling']))
 	{
-
+		$smcFunc['db_add_column'](
+			'{db_prefix}attachments',
+			array(
+				'name' => 'expire_date',
+				'type' => 'varchar',
+				'size' => 255,
+				'default' => '',
+			),
+			array(),
+			'update',
+			null
+		);
 	}

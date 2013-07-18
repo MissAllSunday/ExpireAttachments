@@ -11,8 +11,9 @@
 			<add><![CDATA[a.id_attach, a.id_folder, a.id_msg, a.filename, a.file_hash, IFNULL(a.size, 0) AS filesize, a.downloads, a.approved, a.expire_date,]]></add>
 		</operation>
 		<operation>
-			<search position="replace"><![CDATA[]]></search>
-			<add><![CDATA[]]></add>
+			<search position="replace"><![CDATA['is_approved' => $attachment['approved'],]]></search>
+			<add><![CDATA['is_approved' => $attachment['approved'],
+				'expire_date' => $attachment['expire_date'],]]></add>
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[]]></search>

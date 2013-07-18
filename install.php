@@ -25,9 +25,9 @@
 			'{db_prefix}attachments',
 			array(
 				'name' => 'expire_date',
-				'type' => 'varchar',
-				'size' => 255,
-				'default' => '',
+				'type' => 'int',
+				'size' => 10,
+				'null' => false
 			),
 			array(),
 			'update',

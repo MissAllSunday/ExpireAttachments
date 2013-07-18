@@ -7,6 +7,22 @@
 
 	<file name="$sourcedir/Display.php">
 		<operation>
+			<search position="replace"><![CDATA[a.id_attach, a.id_folder, a.id_msg, a.filename, a.file_hash, IFNULL(a.size, 0) AS filesize, a.downloads, a.approved,]]></search>
+			<add><![CDATA[a.id_attach, a.id_folder, a.id_msg, a.filename, a.file_hash, IFNULL(a.size, 0) AS filesize, a.downloads, a.approved, a.expire_date,]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation>
 			<search position="replace"><![CDATA[]]></search>
 			<add><![CDATA[]]></add>
 		</operation>

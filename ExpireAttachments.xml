@@ -35,9 +35,12 @@
 			<add><![CDATA[$context['can_post_attachment_unapproved'] = allowedTo('post_attachment');
 
 	// Expire Attachments mod
-	if (!empty($modSettings['ExAt_setting_enable']) && !empty($modSettings['ExAt_setting_enableDay_period']) || !empty($modSettings['ExAt_setting_enableWeek_period']) || !empty($modSettings['ExAt_setting_enableMonth_period']) || !empty($modSettings['ExAt_setting_enableYear_period'])))
+	loadLanguage('ExpireAttachments');
+	$context['ExAt_list'] = '';
+
+	if (!empty($modSettings['ExAt_setting_enable']))
 	{
-		$context['ExAt_list'] = '<select name="expire_date">';
+		$context['ExAt_list'] .= '<select name="expire_date">';
 
 		// Set the hardcoded periods
 		$ExAt_periods = array('Day', 'Week', 'Month', 'Year');
@@ -46,14 +49,11 @@
 		foreach  ($ExAt_periods as $period)
 			if (!empty($modSettings['ExAt_setting_enable'. $period .'_period']))
 				if (allowedTo('ExAt_'. $period))
-					$context['ExAt_list'] .= '<option value="'. $period .'">'. $period .'</option>';
+					$context['ExAt_list'] .= '<option value="'. $period .'">'. $modSettings['ExAt_setting_periods_number'] .' '. $period .'</option>';
 
 		// Close the list
-		$context['ExAt_list'] = '</select>';
+		$context['ExAt_list'] .= '</select>';
 	}
-
-	else
-		$context['eam_list'] = false;
 	// Expire Attachments mod end]]></add>
 		</operation>
 	</file>

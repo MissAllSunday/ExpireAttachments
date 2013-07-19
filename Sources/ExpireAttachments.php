@@ -43,14 +43,19 @@ function expire_attachments_settings(&$return_config = false)
 	);
 
 
-/* 	$config_vars = array(
-		array('desc', 'faqmod_desc'),
-
-	); */
+	$config_vars = array(
+		array('check', 'ExAt_setting_enableDay_period',),
+		array('check', 'ExAt_setting_enableWeek_period',),
+		array('check', 'ExAt_setting_enableMonth_period',),
+		array('check', 'ExAt_setting_enableYear_period',),
+		array('int', 'ExAt_setting_periods_number', 'size'=> 3, 'subtext' => $txt['ExAt_setting_periods_number_sub']),
+		array('text', 'ExAt_setting_enableDay_period', 'size'=> 8, 'subtext' => $txt['ExAt_setting_periods_number_sub']),
+	);
 
 	if ($return_config)
 		return $config_vars;
 
+	// Safety first!
 	if (empty($config_vars))
 	{
 		$context['settings_save_dont_show'] = true;

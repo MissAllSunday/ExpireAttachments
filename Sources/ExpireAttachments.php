@@ -32,7 +32,7 @@ function expire_attachments_modify_modifications(&$sub_actions)
 
 function expire_attachments_settings(&$return_config = false)
 {
-	global $context, $scripturl, $txt;
+	global $context, $scripturl, $txt, $modSettings;
 
 	$context['post_url'] = $scripturl . '?action=admin;area=modsettings;save;sa=attachmentsExpireDate';
 	$context['settings_title'] = $txt['ExAt_setting_pageTitle'];
@@ -42,7 +42,6 @@ function expire_attachments_settings(&$return_config = false)
 		'description' => $txt['ExAt_setting_pageDesc'],
 	);
 
-
 	$config_vars = array(
 		array('check', 'ExAt_setting_enable', 'subtext' => $txt['ExAt_setting_enable_sub']),
 		array('check', 'ExAt_setting_enableDay_period',),
@@ -50,7 +49,15 @@ function expire_attachments_settings(&$return_config = false)
 		array('check', 'ExAt_setting_enableMonth_period',),
 		array('check', 'ExAt_setting_enableYear_period',),
 		array('int', 'ExAt_setting_periods_number', 'size'=> 3, 'subtext' => $txt['ExAt_setting_periods_number_sub']),
+		array('var_message', 'ExAt_setting_availablePermissions'),
 	);
+
+	// Post the current enable periods as permissions
+	$ExAt_periods = array('Day', 'Week', 'Month', 'Year');
+
+	foreach  ($ExAt_periods as $period)
+		if (!empty($modSettings['ExAt_setting_enable'. $period .'_period']))
+			$config_vars[] = array('permissions', 'ExAt_'. $period, 0, $txt['permissionname_ExAt_'. $period]);
 
 	if ($return_config)
 		return $config_vars;

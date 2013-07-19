@@ -32,7 +32,13 @@ $txt['ExAt_setting_enableDay_period'] = 'Enable the Day period';
 $txt['ExAt_setting_enableWeek_period']  = 'Enable the Week period';
 $txt['ExAt_setting_enableMonth_period']  = 'Enable the Month period';
 $txt['ExAt_setting_enableYear_period']  = 'Enable the Year period';
+$txt['ExAt_setting_availablePermissions'] = 'The current available permissions:';
 
+// Permissions
+$txt['permissionname_ExAt_Day'] = 'Allow Day period';
+$txt['permissionname_ExAt_Week'] = 'Allow Week period';
+$txt['permissionname_ExAt_Month'] = 'Allow Month period';
+$txt['permissionname_ExAt_Year'] = 'Allow Year period';
 
 $txt['ExAt_'] = '';
 $txt['ExAt_'] = '';

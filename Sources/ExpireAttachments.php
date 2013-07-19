@@ -44,6 +44,7 @@ function expire_attachments_settings(&$return_config = false)
 
 
 	$config_vars = array(
+		array('check', 'ExAt_setting_enable', 'subtext' => $txt['ExAt_setting_enable_sub']),
 		array('check', 'ExAt_setting_enableDay_period',),
 		array('check', 'ExAt_setting_enableWeek_period',),
 		array('check', 'ExAt_setting_enableMonth_period',),

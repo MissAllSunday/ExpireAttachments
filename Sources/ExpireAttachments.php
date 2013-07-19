@@ -49,7 +49,6 @@ function expire_attachments_settings(&$return_config = false)
 		array('check', 'ExAt_setting_enableMonth_period',),
 		array('check', 'ExAt_setting_enableYear_period',),
 		array('int', 'ExAt_setting_periods_number', 'size'=> 3, 'subtext' => $txt['ExAt_setting_periods_number_sub']),
-		array('text', 'ExAt_setting_enableDay_period', 'size'=> 8, 'subtext' => $txt['ExAt_setting_periods_number_sub']),
 	);
 
 	if ($return_config)
@@ -66,6 +65,10 @@ function expire_attachments_settings(&$return_config = false)
 
 	if (isset($_GET['save']))
 	{
+		// We ned to have a defined period soo...
+		if (empty($_POST['ExAt_setting_periods_number']))
+			$_POST['ExAt_setting_periods_number'] = 1;
+
 		checkSession();
 		$save_vars = $config_vars;
 		saveDBSettings($save_vars);

@@ -32,7 +32,25 @@
 	<file name="$sourcedir/Post.php">
 		<operation>
 			<search position="replace"><![CDATA[$context['can_post_attachment_unapproved'] = allowedTo('post_attachment');]]></search>
-			<add><![CDATA[]]></add>
+			<add><![CDATA[$context['can_post_attachment_unapproved'] = allowedTo('post_attachment');
+
+	// Expire Attachments mod
+	if (!empty($modSettings['ExAt_setting_enable']) && (allowedTo('ExAt_day') || allowedTo('ExAt_week') || allowedTo('ExAt_month') || allowedTo('ExAt_year')))
+	{
+		$context['ExAt_list'] = '<select name="expire_date">';
+
+		// Set the hardcoded periods
+		$ExAt_periods = array('Day', 'Week', 'Month', 'Year');
+
+		// Add each option if the user has the permission to use it
+		foreach  ($ExAt_periods as $period)
+			if (allowedTo('ExAt_'. $period))
+				$context['ExAt_list'] .= '<option value="'. $period .'">'. $period .'</option>';
+	}
+
+	else
+		$context['eam_list'] = false;
+	// Expire Attachments mod end]]></add>
 		</operation>
 	</file>
 

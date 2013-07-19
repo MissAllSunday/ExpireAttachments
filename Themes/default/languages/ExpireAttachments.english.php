@@ -19,7 +19,7 @@ $txt['ExAt_ui_title'] = 'Expiration date';
 
 // Admin 
 $txt['ExAt_setting_pageTitle'] = 'Attachments expiration date';
-$txt['ExAt_setting_pageDesc'] = 'From this page you can configure the settings for the attachment expire date modification. <br />Be careful when changing the dates and number of periods, the changes will only be applied to new attachments, old ones will still have their old expiration dates.<br />This mod does not modify old attachments, it will only work with new attachments uploaded after the installation of this mod.';
+$txt['ExAt_setting_pageDesc'] = 'From this page you can configure the settings for the attachment expire date modification. <br />Be careful when changing the dates and number of periods, the changes will only be applied to new attachments, old ones will still have their old expiration dates.<br />This mod does not modify old attachments, it will only work with new attachments uploaded after the installation of this mod.<br />You must enable at least 1 period, otherwise the mod will not store any expiration date. Each date period sets a unique permission, you can assign that permission to each membergroup.<br/> Apply all permissions if you want the user to have all the possible optio dates avaliable.';
 $txt['ExAt_setting_periods_number'] = 'The number of periods for each expiration date.';
 $txt['ExAt_setting_periods_number_sub'] = 'For example, if you chose day, week and month and type 2 on this field, the avaliable fields will be 2 days, 2 weeks and 2 months.<br />If leave empty the mod will use 1 as the period.';
 $txt['ExAt_setting_enable'] = 'Enable the mod';

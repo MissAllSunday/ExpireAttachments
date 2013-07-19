@@ -12,19 +12,60 @@
 if (!defined('SMF'))
 	die('No direct access...');
 
-class ExpireAttachments
+function expire_attachments_admin(&$areas)
 {
-	public static $name = 'ExpireAttachments';
-	public static $shortName = 'ExAt';
+	global $txt;
 
-	public static function Activity_Bar_settings(&$config_vars)
+	loadLanguage('ExpireAttachments');
+
+	// ManageAttachments.php doesn't have a single hook on it so I can't add this section there... :(
+	$areas['config']['areas']['modsettings']['subsections']['attachmentsExpireDate'] = array($txt['ExAt_setting_pageTitle']);
+}
+
+function expire_attachments_modify_modifications(&$sub_actions)
+{
+	global $context;
+
+	$sub_actions['attachmentsExpireDate'] = 'expire_attachments_settings';
+	$context[$context['admin_menu_name']]['tab_data']['tabs']['attachmentsExpireDate'] = array();
+}
+
+function expire_attachments_settings(&$return_config = false)
+{
+	global $context, $scripturl, $txt;
+
+	$context['post_url'] = $scripturl . '?action=admin;area=modsettings;save;sa=attachmentsExpireDate';
+	$context['settings_title'] = $txt['ExAt_setting_pageTitle'];
+	$context['page_title'] = $txt['ExAt_setting_pageTitle'];
+	$context[$context['admin_menu_name']]['tab_data'] = array(
+		'title' => $context['page_title'],
+		'description' => $txt['ExAt_setting_pageDesc'],
+	);
+
+
+/* 	$config_vars = array(
+		array('desc', 'faqmod_desc'),
+
+	); */
+
+	if ($return_config)
+		return $config_vars;
+
+	if (empty($config_vars))
 	{
-		global $txt;
+		$context['settings_save_dont_show'] = true;
+		$context['settings_message'] = '<div align="center">' . $txt['modification_no_misc_settings'] . '</div>';
 
-		if (!isset($txt['ExAt_modName']))
-			loadLanguage(__CLASS__);
-
-		$config_vars[] = $txt['ExAt_modName'];
-		$config_vars[] = '';
+		return prepareDBSettingContext($config_vars);
 	}
+
+	if (isset($_GET['save']))
+	{
+		checkSession();
+		$save_vars = $config_vars;
+		saveDBSettings($save_vars);
+		redirectexit('action=admin;area=modsettings;sa=attachmentsExpireDate');
+	}
+
+	prepareDBSettingContext($config_vars);
 }

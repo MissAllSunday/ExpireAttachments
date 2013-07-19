@@ -17,7 +17,8 @@ elseif (!defined('SMF'))
 
 $hooks = array(
 	'integrate_admin_include' => '$sourcedir/ExpireAttachments.php',
-	'integrate_general_mod_settings' => 'ExpireAttachments::settings',
+	'integrate_admin_areas' => 'expire_attachments_admin',
+	'integrate_modify_modifications' => 'expire_attachments_modify_modifications',
 );
 
 $call = 'add_integration_function';

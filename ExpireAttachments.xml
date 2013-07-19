@@ -31,7 +31,7 @@
 
 	<file name="$sourcedir/Post.php">
 		<operation>
-			<search position="replace"><![CDATA[]]></search>
+			<search position="replace"><![CDATA[<input type="file" size="60" name="attachment[]" id="attachment1" class="input_file" /> (<a href="javascript:void(0);" onclick="cleanFileInput(\'attachment1\');">', $txt['clean_attach'], '</a>)';]]></search>
 			<add><![CDATA[]]></add>
 		</operation>
 	</file>

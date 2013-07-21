@@ -8,11 +8,13 @@
 
 	<install for="2.0 - 2.0.99">
 		<database>install.php</database>
+		<code>hooks.php</code>
 		<modification>ExpireAttachments.xml</modification>
 	</install>
 
 	<uninstall for="2.0 - 2.0.99">
 		<database>install.php</database>
+		<code>remove.php</code>
 		<modification reverse="true">ExpireAttachments.xml</modification>
 	</uninstall>
 

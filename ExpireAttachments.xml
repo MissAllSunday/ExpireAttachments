@@ -40,7 +40,7 @@
 
 	if (!empty($modSettings['ExAt_setting_enable']))
 	{
-		$context['ExAt_list'] .= '<select name="expire_date1" id="expire_date1">';
+		$context['ExAt_list'] .= '<select name="expire_date0" id="expire_date1">';
 
 		// Set the hardcoded periods
 		$context['ExAt_periods'] = array('Day', 'Week', 'Month', 'Year');
@@ -63,7 +63,7 @@
 		<operation>
 			<search position="replace"><![CDATA[if (createAttachment($attachmentOptions))]]></search>
 			<add><![CDATA[// Expire Attachments mod
-			if (!empty($modSettings['ExAt_setting_enable']) && !empty(trim($_POST['expire_date'])))
+			if (!empty($modSettings['ExAt_setting_enable']) && !empty($_REQUEST['expire_date'. $n]))
 			{
 				// Set the var
 				$attachmentOptions['expire_date'] = 0;
@@ -73,13 +73,15 @@
 					$modSettings['ExAt_setting_periods_number'] = 1;
 
 				// Calculate the time ahead, strtotime() makes things easy, for me, not the server...
-				$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods_number'] .' '. strtolower($_POST['expire_date']));
+				$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods_number'] .' '. strtolower($_REQUEST['expire_date'. $n]));
 
 				// Fill up the var
 				if (!empty($expire_date))
 					$attachmentOptions['expire_date'] = (int) $expire_date;
 			}
-			// Expire Attachments mod end]]></add>
+			// Expire Attachments mod end
+
+			if (createAttachment($attachmentOptions))]]></add>
 		</operation>
 	</file>
 
@@ -142,13 +144,14 @@
 								{
 									allowed_attachments = allowed_attachments - 1;
 									current_attachment = current_attachment + 1;
+									var current_Select = current_attachment - 1;
 									if (allowed_attachments <= 0)
 										return alert("', $txt['more_attachments_error'], '");
 
 									setOuterHTML(document.getElementById("moreAttachments"), \'<dd class="smalltext"><input type="file" size="60" name="attachment[]" id="attachment\' + current_attachment + \'" class="input_file" /> (<a href="javascript:void(0);" onclick="cleanFileInput(\\\'attachment\' + current_attachment + \'\\\');">', $txt['clean_attach'], '</a>)';
 
 			// Expire Attachments mod
-			echo '\' + \'', $txt['ExAt_ui_title'] ,'<select name="expire_date\' + current_attachment + \'" id="expire_date\' + current_attachment + \'">';
+			echo '\' + \'', $txt['ExAt_ui_title'] ,'<select name="expire_date\' + current_Select + \'" id="expire_date\' + current_attachment + \'">';
 
 			foreach ($context['ExAt_availableOptions'] as $period)
 				echo '\' + \'<option value="', $period ,'">', $modSettings['ExAt_setting_periods_number'] ,' ', $period ,'</option>';

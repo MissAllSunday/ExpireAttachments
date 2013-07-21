@@ -13,7 +13,7 @@
 		<operation>
 			<search position="replace"><![CDATA['is_approved' => $attachment['approved'],]]></search>
 			<add><![CDATA['is_approved' => $attachment['approved'],
-				'expire_date' => $attachment['expire_date'],]]></add>
+				'expire_date' => $txt['ExAt_ui_showDate'] . expire_attachments_timeElapsed($attachment['expire_date']),]]></add>
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[// How much are we sticking on each page?]]></search>
@@ -23,14 +23,6 @@
 	// Expire Attachments mod
 
 	// How much are we sticking on each page?]]></add>
-		</operation>
-		<operation>
-			<search position="replace"><![CDATA[]]></search>
-			<add><![CDATA[]]></add>
-		</operation>
-		<operation>
-			<search position="replace"><![CDATA[]]></search>
-			<add><![CDATA[]]></add>
 		</operation>
 	</file>
 

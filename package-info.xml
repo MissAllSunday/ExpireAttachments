@@ -9,12 +9,16 @@
 	<install for="2.0 - 2.0.99">
 		<database>install.php</database>
 		<code>hooks.php</code>
+		<require-dir name="Themes" destination="$boarddir">Source files</require-dir>
+		<require-dir name="Sources" destination="$boarddir">Source files</require-dir>
 		<modification>ExpireAttachments.xml</modification>
 	</install>
 
 	<uninstall for="2.0 - 2.0.99">
 		<database>install.php</database>
 		<code>remove.php</code>
+		ExpireAttachments
+		<remove-file name="$sourcedir/ExpireAttachments.php" />
 		<modification reverse="true">ExpireAttachments.xml</modification>
 	</uninstall>
 

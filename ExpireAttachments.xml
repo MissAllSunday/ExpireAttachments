@@ -122,6 +122,41 @@
 
 		// Show more boxes only if they aren't approaching their limit.]]></add>
 		</operation>
+		<operation>
+			<search position="replace"><![CDATA[function addAttachment()
+								{
+									allowed_attachments = allowed_attachments - 1;
+									current_attachment = current_attachment + 1;
+									if (allowed_attachments <= 0)
+										return alert("', $txt['more_attachments_error'], '");
+
+									setOuterHTML(document.getElementById("moreAttachments"), \'<dd class="smalltext"><input type="file" size="60" name="attachment[]" id="attachment\' + current_attachment + \'" class="input_file" /> (<a href="javascript:void(0);" onclick="cleanFileInput(\\\'attachment\' + current_attachment + \'\\\');">', $txt['clean_attach'], '</a>)\' + \'</dd><dd class="smalltext" id="moreAttachments"><a href="#" onclick="addAttachment(); return false;">(', $txt['more_attachments'], ')<\' + \'/a><\' + \'/dd>\');
+
+									return true;
+								}]]></search>
+			<add><![CDATA[function addAttachment()
+								{
+									allowed_attachments = allowed_attachments - 1;
+									current_attachment = current_attachment + 1;
+									if (allowed_attachments <= 0)
+										return alert("', $txt['more_attachments_error'], '");
+
+									setOuterHTML(document.getElementById("moreAttachments"), \'<dd class="smalltext"><input type="file" size="60" name="attachment[]" id="attachment\' + current_attachment + \'" class="input_file" /> (<a href="javascript:void(0);" onclick="cleanFileInput(\\\'attachment\' + current_attachment + \'\\\');">', $txt['clean_attach'], '</a>)';
+
+			// Expire Attachments mod
+			echo '\' + \'', $txt['ExAt_ui_title'] ,'<select name="expire_date\' + current_attachment + \'" id="expire_date\' + current_attachment + \'">';
+
+			foreach ($context['ExAt_availableOptions'] as $period)
+				echo '\' + \'<option value="', $period ,'">', $modSettings['ExAt_setting_periods_number'] ,' ', $period ,'</option>';
+
+			echo '\' + \'</select>';
+			// Expire Attachments mod end
+
+			echo'\' + \'</dd><dd class="smalltext" id="moreAttachments"><a href="#" onclick="addAttachment(); return false;">(', $txt['more_attachments'], ')<\' + \'/a><\' + \'/dd>\');
+
+									return true;
+								}]]></add>
+		</operation>
 	</file>
 
 	<file name="$themedir/Display.template.php">

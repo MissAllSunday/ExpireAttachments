@@ -56,6 +56,10 @@
 	}
 	// Expire Attachments mod end]]></add>
 		</operation>
+		<operation>
+			<search position="replace"><![CDATA[// Check the total upload size for this post...]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
 	</file>
 
 	<file name="$sourcedir/Subs-Post.php">
@@ -91,10 +95,15 @@
 		</operation>
 	</file>
 
-	<file name="$themedir/Profile.template.php">
+	<file name="$themedir/Post.template.php">
 		<operation>
-			<search position="replace"><![CDATA[]]></search>
-			<add><![CDATA[]]></add>
+			<search position="replace"><![CDATA[// Show more boxes only if they aren't approaching their limit.]]></search>
+			<add><![CDATA[// Expire Attachments mod
+		if (!empty($modSettings['ExAt_setting_enable']))
+			echo $txt['ExAt_ui_title'] . $context['ExAt_list'];
+		// Expire Attachments mod
+
+		// Show more boxes only if they aren't approaching their limit.]]></add>
 		</operation>
 	</file>
 

@@ -40,16 +40,20 @@
 
 	if (!empty($modSettings['ExAt_setting_enable']))
 	{
-		$context['ExAt_list'] .= '<select name="expire_date">';
+		$context['ExAt_list'] .= '<select name="expire_date1" id="expire_date1">';
 
 		// Set the hardcoded periods
-		$ExAt_periods = array('Day', 'Week', 'Month', 'Year');
+		$context['ExAt_periods'] = array('Day', 'Week', 'Month', 'Year');
+		$context['ExAt_availableOptions'] = array();
 
 		// Add each option if the user has the permission to use it
-		foreach  ($ExAt_periods as $period)
+		foreach  ($context['ExAt_periods'] as $period)
 			if (!empty($modSettings['ExAt_setting_enable'. $period .'_period']))
+			{
+				$context['ExAt_availableOptions'][] = $period;
 				if (allowedTo('ExAt_'. $period))
 					$context['ExAt_list'] .= '<option value="'. $period .'">'. $modSettings['ExAt_setting_periods_number'] .' '. $period .'</option>';
+			}
 
 		// Close the list
 		$context['ExAt_list'] .= '</select>';

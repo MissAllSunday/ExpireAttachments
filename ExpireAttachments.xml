@@ -16,8 +16,13 @@
 				'expire_date' => $attachment['expire_date'],]]></add>
 		</operation>
 		<operation>
-			<search position="replace"><![CDATA[]]></search>
-			<add><![CDATA[]]></add>
+			<search position="replace"><![CDATA[// How much are we sticking on each page?]]></search>
+			<add><![CDATA[// Expire Attachments mod
+	loadLanguage('ExpireAttachments');
+	require_once($sourcedir .'/ExpireAttachments.php');
+	// Expire Attachments mod
+
+	// How much are we sticking on each page?]]></add>
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[]]></search>
@@ -168,7 +173,7 @@
 
 	<file name="$themedir/Display.template.php">
 		<operation>
-			<search position="replace"><![CDATA[]]></search>
+			<search position="replace"><![CDATA[(', $attachment['size'], ($attachment['is_image'] ? ', ' . $attachment['real_width'] . 'x' . $attachment['real_height'] . ' - ' . $txt['attach_viewed'] : ' - ' . $txt['attach_downloaded']) . ' ' . $attachment['downloads'] . ' ' . $txt['attach_times'] . '.)<br />';]]></search>
 			<add><![CDATA[]]></add>
 		</operation>
 	</file>

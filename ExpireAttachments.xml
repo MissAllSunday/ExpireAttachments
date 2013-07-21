@@ -156,7 +156,16 @@
 	<file name="$themedir/Display.template.php">
 		<operation>
 			<search position="replace"><![CDATA[(', $attachment['size'], ($attachment['is_image'] ? ', ' . $attachment['real_width'] . 'x' . $attachment['real_height'] . ' - ' . $txt['attach_viewed'] : ' - ' . $txt['attach_downloaded']) . ' ' . $attachment['downloads'] . ' ' . $txt['attach_times'] . '.)<br />';]]></search>
-			<add><![CDATA[]]></add>
+			<add><![CDATA[(', $attachment['size'], ($attachment['is_image'] ? ', ' . $attachment['real_width'] . 'x' . $attachment['real_height'] . ' - ' . $txt['attach_viewed'] : ' - ' . $txt['attach_downloaded']) . ' ' . $attachment['downloads'] . ' ' . $txt['attach_times'] . '.)';
+
+				// Expire Attachments mod
+				if (!empty($modSettings['ExAt_setting_enable']) && !empty($attachment['expire_date']))
+					echo '
+										', $attachment['expire_date'];
+
+				echo '
+										<br />';
+				// Expire Attachments mod]]></add>
 		</operation>
 	</file>
 

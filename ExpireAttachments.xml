@@ -57,8 +57,25 @@
 	// Expire Attachments mod end]]></add>
 		</operation>
 		<operation>
-			<search position="replace"><![CDATA[// Check the total upload size for this post...]]></search>
-			<add><![CDATA[]]></add>
+			<search position="replace"><![CDATA[if (createAttachment($attachmentOptions))]]></search>
+			<add><![CDATA[// Expire Attachments mod
+			if (!empty($modSettings['ExAt_setting_enable']) && !empty(trim($_POST['expire_date'])))
+			{
+				// Set the var
+				$attachmentOptions['expire_date'] = 0;
+
+				// One last extra check, just to be sure...
+				if (empty($modSettings['ExAt_setting_periods_number']))
+					$modSettings['ExAt_setting_periods_number'] = 1;
+
+				// Calculate the time ahead, strtotime() makes things easy, for me, not the server...
+				$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods_number'] .' '. strtolower($_POST['expire_date']));
+
+				// Fill up the var
+				if (!empty($expire_date))
+					$attachmentOptions['expire_date'] = (int) $expire_date;
+			}
+			// Expire Attachments mod end]]></add>
 		</operation>
 	</file>
 
@@ -101,7 +118,7 @@
 			<add><![CDATA[// Expire Attachments mod
 		if (!empty($modSettings['ExAt_setting_enable']))
 			echo $txt['ExAt_ui_title'] . $context['ExAt_list'];
-		// Expire Attachments mod
+		// Expire Attachments mod end
 
 		// Show more boxes only if they aren't approaching their limit.]]></add>
 		</operation>

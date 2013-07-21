@@ -85,3 +85,32 @@ function expire_attachments_settings(&$return_config = false)
 
 	prepareDBSettingContext($config_vars);
 }
+
+	function expire_attachments_timeElapsed($ptime)
+	{
+		global $txt;
+
+		$etime = $ptime - time();
+
+		if ($etime < 1)
+			return $txt['ExAt_setting_now'];
+
+		$a = array(
+			12 * 30 * 24 * 60 * 60	=> $txt['ExAt_setting_year'],
+			30 * 24 * 60 * 60		=> $txt['ExAt_setting_month'],
+			24 * 60 * 60			=> $txt['ExAt_setting_day'],
+			60 * 60					=> $txt['ExAt_setting_hour'],
+			60						=> $txt['ExAt_setting_minute'],
+			1						=> $txt['ExAt_setting_second']
+		);
+
+		foreach ($a as $secs => $str)
+		{
+			$d = $etime / $secs;
+			if ($d >= 1)
+			{
+				$r = round($d);
+				return $r . ' ' . $str . ($r > 1 ? 's ' : ' ');
+			}
+		}
+	}

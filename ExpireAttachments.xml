@@ -58,6 +58,39 @@
 		</operation>
 	</file>
 
+	<file name="$sourcedir/Subs-Post.php">
+		<operation>
+			<search position="replace"><![CDATA[$smcFunc['db_insert']('',
+		'{db_prefix}attachments',
+		array(
+			'id_folder' => 'int', 'id_msg' => 'int', 'filename' => 'string-255', 'file_hash' => 'string-40', 'fileext' => 'string-8',
+			'size' => 'int', 'width' => 'int', 'height' => 'int',
+			'mime_type' => 'string-20', 'approved' => 'int',
+		),
+		array(
+			$id_folder, (int) $attachmentOptions['post'], $attachmentOptions['name'], $attachmentOptions['file_hash'], $attachmentOptions['fileext'],
+			(int) $attachmentOptions['size'], (empty($attachmentOptions['width']) ? 0 : (int) $attachmentOptions['width']), (empty($attachmentOptions['height']) ? '0' : (int) $attachmentOptions['height']),
+			(!empty($attachmentOptions['mime_type']) ? $attachmentOptions['mime_type'] : ''), (int) $attachmentOptions['approved'],
+		),
+		array('id_attach')
+	);]]></search>
+			<add><![CDATA[$smcFunc['db_insert']('',
+		'{db_prefix}attachments',
+		array(
+			'id_folder' => 'int', 'id_msg' => 'int', 'filename' => 'string-255', 'file_hash' => 'string-40', 'fileext' => 'string-8',
+			'size' => 'int', 'width' => 'int', 'height' => 'int',
+			'mime_type' => 'string-20', 'approved' => 'int', 'expire_date' => 'int',
+		),
+		array(
+			$id_folder, (int) $attachmentOptions['post'], $attachmentOptions['name'], $attachmentOptions['file_hash'], $attachmentOptions['fileext'],
+			(int) $attachmentOptions['size'], (empty($attachmentOptions['width']) ? 0 : (int) $attachmentOptions['width']), (empty($attachmentOptions['height']) ? '0' : (int) $attachmentOptions['height']),
+			(!empty($attachmentOptions['mime_type']) ? $attachmentOptions['mime_type'] : ''), (int) $attachmentOptions['approved'], (int) $attachmentOptions['expire_date'],
+		),
+		array('id_attach')
+	);]]></add>
+		</operation>
+	</file>
+
 	<file name="$themedir/Profile.template.php">
 		<operation>
 			<search position="replace"><![CDATA[]]></search>

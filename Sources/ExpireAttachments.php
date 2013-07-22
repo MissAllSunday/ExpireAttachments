@@ -81,9 +81,10 @@ function expire_attachments_settings(&$return_config = false)
 
 	if (isset($_GET['save']))
 	{
-		// We ned to have a defined period soo...
-		if (empty($_POST['ExAt_setting_periods_number']))
-			$_POST['ExAt_setting_periods_number'] = 1;
+		// If we're enabling a period, its number must be set...
+		foreach ($ExAt_periods as $p)
+			if (!empty($_POST['ExAt_setting_enable'. $p .'_period']) && empty($_POST['ExAt_setting_periods'. $p .'_number']))
+				$_POST['ExAt_setting_periods'. $p .'_number'] = 1;
 
 		checkSession();
 		$save_vars = $config_vars;

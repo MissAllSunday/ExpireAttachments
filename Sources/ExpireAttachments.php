@@ -44,18 +44,26 @@ function expire_attachments_settings(&$return_config = false)
 
 	$config_vars = array(
 		array('check', 'ExAt_setting_enable', 'subtext' => $txt['ExAt_setting_enable_sub']),
+		'',
 		array('check', 'ExAt_setting_enableDay_period',),
+		array('int', 'ExAt_setting_periodsDay_number', 'size'=> 3,),
+		'',
 		array('check', 'ExAt_setting_enableWeek_period',),
+		array('int', 'ExAt_setting_periodsWeek_number', 'size'=> 3,),
+		'',
 		array('check', 'ExAt_setting_enableMonth_period',),
+		array('int', 'ExAt_setting_periodsMonth_number', 'size'=> 3,),
+		'',
 		array('check', 'ExAt_setting_enableYear_period',),
-		array('int', 'ExAt_setting_periods_number', 'size'=> 3, 'subtext' => $txt['ExAt_setting_periods_number_sub']),
+		array('int', 'ExAt_setting_periodsYear_number', 'size'=> 3,),
+		'',
 		array('var_message', 'ExAt_setting_availablePermissions'),
 	);
 
 	// Post the current enable periods as permissions
 	$ExAt_periods = array('Day', 'Week', 'Month', 'Year');
 
-	foreach  ($ExAt_periods as $period)
+	foreach ($ExAt_periods as $period)
 		if (!empty($modSettings['ExAt_setting_enable'. $period .'_period']))
 			$config_vars[] = array('permissions', 'ExAt_'. $period, 0, $txt['permissionname_ExAt_'. $period]);
 
@@ -110,7 +118,7 @@ function expire_attachments_settings(&$return_config = false)
 			if ($d >= 1)
 			{
 				$r = round($d);
-				return $r . ' ' . $str . ($r > 1 ? 's ' : ' ');
+				return $r . ' ' . $str . ($r > 1 ? $txt['ExAt_setting_s'] .' ' : ' ');
 			}
 		}
 	}

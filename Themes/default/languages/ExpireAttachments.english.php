@@ -36,6 +36,7 @@ $txt['ExAt_setting_month'] = 'month';
 $txt['ExAt_setting_year'] = 'year';
 $txt['ExAt_setting_now'] = 'now';
 $txt['ExAt_setting_forever'] = 'Doesn\'t expire';
+$txt['ExAt_setting_forever_js'] = 'Doesn\\\'t expire';
 $txt['ExAt_setting_s'] = 's';
 $txt['ExAt_setting_enableDay_period'] = 'Enable the Day period';
 $txt['ExAt_setting_enableWeek_period']  = 'Enable the Week period';

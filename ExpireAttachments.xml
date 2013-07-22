@@ -156,7 +156,12 @@
 			echo '\' + \'', $txt['ExAt_ui_title'] ,'<select name="expire_date\' + current_Select + \'" id="expire_date\' + current_attachment + \'">';
 
 			foreach ($context['ExAt_availableOptions'] as $period)
-				echo '\' + \'<option value="', $period ,'">', $modSettings['ExAt_setting_periods_number'] ,' ', $period ,'</option>';
+				echo '\' + \'<option value="', $period ,'">', $modSettings['ExAt_setting_periods'. $period .'_number'] ,' ', $period , ($modSettings['ExAt_setting_periods'. $period .'_number'] > 1 ? $txt['ExAt_setting_s'] : '') ,'</option>';
+
+			// Special case for the "forever" option
+			if (!empty($modSettings['ExAt_setting_enableForever_period']))
+				if (allowedTo('ExAt_Forever'))
+					echo '\' + \'<option value="forever">', $txt['ExAt_setting_forever_js'] ,'</option>';
 
 			echo '\' + \'</select>';
 			// Expire Attachments mod end

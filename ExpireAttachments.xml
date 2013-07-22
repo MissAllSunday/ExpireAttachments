@@ -32,11 +32,11 @@
 			<add><![CDATA[$context['can_post_attachment_unapproved'] = allowedTo('post_attachment');
 
 	// Expire Attachments mod
-	loadLanguage('ExpireAttachments');
 	$context['ExAt_list'] = '';
 
 	if (!empty($modSettings['ExAt_setting_enable']))
 	{
+		loadLanguage('ExpireAttachments');
 		$context['ExAt_list'] .= '<select name="expire_date0" id="expire_date1">';
 
 		// Set the hardcoded periods
@@ -49,8 +49,13 @@
 			{
 				$context['ExAt_availableOptions'][] = $period;
 				if (allowedTo('ExAt_'. $period))
-					$context['ExAt_list'] .= '<option value="'. $period .'">'. $modSettings['ExAt_setting_periods_number'] .' '. $period .'</option>';
+					$context['ExAt_list'] .= '<option value="'. $period .'">'. $modSettings['ExAt_setting_periods'. $period .'_number'] .' '. $period . ($modSettings['ExAt_setting_periods'. $period .'_number'] > 1 ? $txt['ExAt_setting_s'] : '') .'</option>';
 			}
+
+		// Special case for the "forever" option
+		if (!empty($modSettings['ExAt_setting_enableForever_period']))
+			if (allowedTo('ExAt_Forever'))
+				$context['ExAt_list'] .= '<option value="forever">'. $txt['ExAt_setting_forever'] .'</option>';
 
 		// Close the list
 		$context['ExAt_list'] .= '</select>';

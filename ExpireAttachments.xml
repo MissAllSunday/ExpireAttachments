@@ -70,16 +70,20 @@
 				// Set the var
 				$attachmentOptions['expire_date'] = 0;
 
-				// One last extra check, just to be sure...
-				if (empty($modSettings['ExAt_setting_periods_number']))
-					$modSettings['ExAt_setting_periods_number'] = 1;
+				// Do this only if the selected option wasn't "forever"
+				if ($_REQUEST['expire_date'. $n] != 'forever')
+				{
+					// One last extra check, just to be sure...
+					if (empty($modSettings['ExAt_setting_periods'. $_REQUEST['expire_date'. $n] .'_number']))
+						$modSettings['ExAt_setting_periods'. $_REQUEST['expire_date'. $n] .'_number'] = 1;
 
-				// Calculate the time ahead, strtotime() makes things easy, for me, not the server...
-				$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods_number'] .' '. strtolower($_REQUEST['expire_date'. $n]));
+					// Calculate the time ahead, strtotime() makes things easy, for me, not the server...
+					$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods'. $_REQUEST['expire_date'. $n] .'_number'] .' '. strtolower($_REQUEST['expire_date'. $n]));
 
-				// Fill up the var
-				if (!empty($expire_date))
-					$attachmentOptions['expire_date'] = (int) $expire_date;
+					// Fill up the var
+					if (!empty($expire_date))
+						$attachmentOptions['expire_date'] = (int) $expire_date;
+				}
 			}
 			// Expire Attachments mod end
 

@@ -36,10 +36,13 @@ $txt['ExAt_setting_month'] = 'month';
 $txt['ExAt_setting_year'] = 'year';
 $txt['ExAt_setting_now'] = 'now';
 $txt['ExAt_setting_s'] = 's';
+$txt['ExAt_setting_forever'] = 
 $txt['ExAt_setting_enableDay_period'] = 'Enable the Day period';
 $txt['ExAt_setting_enableWeek_period']  = 'Enable the Week period';
 $txt['ExAt_setting_enableMonth_period']  = 'Enable the Month period';
 $txt['ExAt_setting_enableYear_period']  = 'Enable the Year period';
+$txt['ExAt_setting_enableForever_period']  = 'The attachment doesn\'t expire';
+$txt['ExAt_setting_enableForever_period_sub'] = 'If this setting is enable, a new permission wil be set to let users bypass the expiration date altogether.'; 
 $txt['ExAt_setting_availablePermissions'] = 'The current available permissions:';
 
 // Permissions
@@ -47,6 +50,7 @@ $txt['permissionname_ExAt_Day'] = 'Allow Day period';
 $txt['permissionname_ExAt_Week'] = 'Allow Week period';
 $txt['permissionname_ExAt_Month'] = 'Allow Month period';
 $txt['permissionname_ExAt_Year'] = 'Allow Year period';
+$txt['permissionname_ExAt_Forever'] = 'Their attachments doesn\'t expire';
 
 $txt['ExAt_'] = '';
 $txt['ExAt_'] = '';

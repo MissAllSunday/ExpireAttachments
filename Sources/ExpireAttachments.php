@@ -57,6 +57,8 @@ function expire_attachments_settings(&$return_config = false)
 		array('check', 'ExAt_setting_enableYear_period',),
 		array('int', 'ExAt_setting_periodsYear_number', 'size'=> 3,),
 		'',
+		array('check', 'ExAt_setting_enableForever_period', 'subtext' => $txt['ExAt_setting_enableForever_period_sub']),
+		'',
 		array('var_message', 'ExAt_setting_availablePermissions'),
 	);
 
@@ -66,6 +68,10 @@ function expire_attachments_settings(&$return_config = false)
 	foreach ($ExAt_periods as $period)
 		if (!empty($modSettings['ExAt_setting_enable'. $period .'_period']))
 			$config_vars[] = array('permissions', 'ExAt_'. $period, 0, $txt['permissionname_ExAt_'. $period]);
+
+	// Print the special "forever" permission
+	if (!empty($modSettings['ExAt_setting_enableForever_period']))
+		$config_vars[] = array('permissions', 'ExAt_Forever', 0, $txt['permissionname_ExAt_Forever']);
 
 	if ($return_config)
 		return $config_vars;

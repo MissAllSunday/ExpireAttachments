@@ -275,15 +275,17 @@
 			<add><![CDATA[// Deletes attachments based on its expire dates
 function scheduled_attachments_expire_date()
 {
-	global $modSettings, $smcFunc;
+	global $modSettings, $smcFunc, $sourcedir;
 
 	// The mod must be enable
 	if (empty($modSettings['ExAt_setting_enable'])
 		return true;
 
+	$remove_ids = array();
+
 	// Since we're way beyond abusing strtotime()...
-	$range_to = strtotime('- 12 hours');
-	$range_from = strtotime('+ 12 hours');
+	$range_to = time() - 12*60*60;
+	$range_from = time() + 12*60*60;
 
 	// Did someone ordered a heavy query?
 	$request = $smcFunc['db_query']('', '
@@ -296,7 +298,25 @@ function scheduled_attachments_expire_date()
 		)
 	);
 
-		$smcFunc['db_free_result']($request);
+	// Get the Ids
+	while ($row = $smcFunc['db_fetch_assoc']($request))
+		$remove_ids[] $row['id_attach'];
+
+	$smcFunc['db_free_result']($request);
+
+	// Nothing, nada, better luck next time!
+	if (empty($remove_ids))
+		return true;
+
+	// Got some, yay!
+	require_once($sourcedir . '/ManageAttachments.php');
+
+		$attachmentQuery = array(
+			'attachment_type' => 0,
+			'id_msg' => (int) $_REQUEST['msg'],
+			'not_id_attach' => $del_temp,
+		);
+		removeAttachments($attachmentQuery);
 }
 ]]></add>
 		</operation>

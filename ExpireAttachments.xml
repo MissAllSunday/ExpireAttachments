@@ -163,7 +163,43 @@
 						<dd class="smalltext">
 							<label for="attachment_', $attachment['id'], '"><input type="checkbox" id="attachment_', $attachment['id'], '" name="attach_del[]" value="', $attachment['id'], '"', empty($attachment['unchecked']) ? ' checked="checked"' : '', ' class="input_check" /> ', $attachment['name'], (empty($attachment['approved']) ? ' (' . $txt['awaiting_approval'] . ')' : ''), '</label>
 						</dd>';]]></search>
-			<add><![CDATA[]]></add>
+			<add><![CDATA[foreach ($context['current_attachments'] as $attachment)
+		{
+			echo '
+						<dd class="smalltext">
+							<label for="attachment_', $attachment['id'], '"><input type="checkbox" id="attachment_', $attachment['id'], '" name="attach_del[]" value="', $attachment['id'], '"', empty($attachment['unchecked']) ? ' checked="checked"' : '', ' class="input_check" /> ', $attachment['name'], (empty($attachment['approved']) ? ' (' . $txt['awaiting_approval'] . ')' : ''), '</label>';
+
+			// Expire Attachments mod
+			if (!empty($modSettings['ExAt_setting_enable']))
+			{
+				echo ' |', $txt['ExAt_ui_title']. ' <select name="attachment_expire[]"><option value="">&nbsp;</option>';
+
+				// Set the hardcoded periods
+				$context['ExAt_periods'] = array('Day', 'Week', 'Month', 'Year');
+				$context['ExAt_availableOptions'] = array();
+
+				// Add each option if the user has the permission to use it
+				foreach  ($context['ExAt_periods'] as $period)
+					if (!empty($modSettings['ExAt_setting_enable'. $period .'_period']))
+					{
+						$context['ExAt_availableOptions'][] = $period;
+						if (allowedTo('ExAt_'. $period))
+							echo '<option value="'. $period .'">'. $modSettings['ExAt_setting_periods'. $period .'_number'] .' '. $period . ($modSettings['ExAt_setting_periods'. $period .'_number'] > 1 ? $txt['ExAt_setting_s'] : '') .'</option>';
+					}
+
+				// Special case for the "forever" option
+				if (!empty($modSettings['ExAt_setting_enableForever_period']))
+					if (allowedTo('ExAt_Forever'))
+						echo '<option value="forever">'. $txt['ExAt_setting_forever'] .'</option>';
+
+				// Close the list
+				echo '</select>';
+			}
+
+			echo '
+						</dd>';
+		}
+		// Expire Attachments mod end]]></add>
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[// Show more boxes only if they aren't approaching their limit.]]></search>
@@ -230,6 +266,13 @@
 				echo '
 										<br />';
 				// Expire Attachments mod]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ScheduledTasks.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[]]></add>
 		</operation>
 	</file>
 

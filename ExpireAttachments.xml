@@ -304,19 +304,21 @@ function scheduled_attachments_expire_date()
 
 	$smcFunc['db_free_result']($request);
 
-	// Nothing, nada, better luck next time!
+	// Nada... better luck next time!
 	if (empty($remove_ids))
 		return true;
 
 	// Got some, yay!
 	require_once($sourcedir . '/ManageAttachments.php');
 
-		$attachmentQuery = array(
-			'attachment_type' => 0,
-			'id_msg' => (int) $_REQUEST['msg'],
-			'not_id_attach' => $del_temp,
-		);
-		removeAttachments($attachmentQuery);
+	$attachmentQuery = array(
+		'attachment_type' => 0,
+		'id_attach' => $remove_ids,
+	);
+
+	removeAttachments($attachmentQuery);
+
+	return true;
 }
 ]]></add>
 		</operation>

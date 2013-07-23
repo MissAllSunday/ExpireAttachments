@@ -28,6 +28,23 @@
 
 	<file name="$sourcedir/Post.php">
 		<operation>
+			<search position="replace"><![CDATA[SELECT IFNULL(size, -1) AS filesize, filename, id_attach, approved]]></search>
+			<add><![CDATA[SELECT IFNULL(size, -1) AS filesize, filename, id_attach, approved, expire_date,]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[$context['current_attachments'][] = array(
+						'name' => htmlspecialchars($row['filename']),
+						'id' => $row['id_attach'],
+						'approved' => $row['approved'],
+					);]]></search>
+			<add><![CDATA[$context['current_attachments'][] = array(
+						'name' => htmlspecialchars($row['filename']),
+						'id' => $row['id_attach'],
+						'approved' => $row['approved'],
+						'expire_date' => $row['expire_date'],
+					);]]></add>
+		</operation>
+		<operation>
 			<search position="replace"><![CDATA[$context['can_post_attachment_unapproved'] = allowedTo('post_attachment');]]></search>
 			<add><![CDATA[$context['can_post_attachment_unapproved'] = allowedTo('post_attachment');
 
@@ -125,6 +142,14 @@
 	</file>
 
 	<file name="$themedir/Post.template.php">
+		<operation>
+			<search position="replace"><![CDATA[foreach ($context['current_attachments'] as $attachment)
+			echo '
+						<dd class="smalltext">
+							<label for="attachment_', $attachment['id'], '"><input type="checkbox" id="attachment_', $attachment['id'], '" name="attach_del[]" value="', $attachment['id'], '"', empty($attachment['unchecked']) ? ' checked="checked"' : '', ' class="input_check" /> ', $attachment['name'], (empty($attachment['approved']) ? ' (' . $txt['awaiting_approval'] . ')' : ''), '</label>
+						</dd>';]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
 		<operation>
 			<search position="replace"><![CDATA[// Show more boxes only if they aren't approaching their limit.]]></search>
 			<add><![CDATA[// Expire Attachments mod

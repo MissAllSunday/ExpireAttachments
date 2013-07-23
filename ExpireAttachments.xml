@@ -272,7 +272,33 @@
 	<file name="$sourcedir/ScheduledTasks.php">
 		<operation>
 			<search position="end" />
-			<add><![CDATA[]]></add>
+			<add><![CDATA[// Deletes attachments based on its expire dates
+function scheduled_attachments_expire_date()
+{
+	global $modSettings, $smcFunc;
+
+	// The mod must be enable
+	if (empty($modSettings['ExAt_setting_enable'])
+		return true;
+
+	// Since we're way beyond abusing strtotime()...
+	$range_to = strtotime('- 12 hours');
+	$range_from = strtotime('+ 12 hours');
+
+	// Did someone ordered a heavy query?
+	$request = $smcFunc['db_query']('', '
+		SELECT id_attach
+		FROM {db_prefix}attachments
+		WHERE column_name BETWEEN {int:range_to} AND {int:range_from}',
+		array(
+			'range_to' => $range_to,
+			'range_from' => $range_from,
+		)
+	);
+
+		$smcFunc['db_free_result']($request);
+}
+]]></add>
 		</operation>
 	</file>
 

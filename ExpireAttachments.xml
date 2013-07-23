@@ -278,20 +278,20 @@ function scheduled_attachments_expire_date()
 	global $modSettings, $smcFunc, $sourcedir;
 
 	// The mod must be enable
-	if (empty($modSettings['ExAt_setting_enable'])
+	if (empty($modSettings['ExAt_setting_enable']))
 		return true;
 
 	$remove_ids = array();
 
 	// Since we're way beyond abusing strtotime()...
-	$range_to = time() - 12*60*60;
-	$range_from = time() + 12*60*60;
+	$range_to = time() - (12*60*60);
+	$range_from = time() + (12*60*60);
 
 	// Did someone ordered a heavy query?
 	$request = $smcFunc['db_query']('', '
 		SELECT id_attach
 		FROM {db_prefix}attachments
-		WHERE column_name BETWEEN {int:range_to} AND {int:range_from}',
+		WHERE expire_date BETWEEN {int:range_to} AND {int:range_from}',
 		array(
 			'range_to' => $range_to,
 			'range_from' => $range_from,
@@ -300,7 +300,7 @@ function scheduled_attachments_expire_date()
 
 	// Get the Ids
 	while ($row = $smcFunc['db_fetch_assoc']($request))
-		$remove_ids[] $row['id_attach'];
+		$remove_ids[] = $row['id_attach'];
 
 	$smcFunc['db_free_result']($request);
 

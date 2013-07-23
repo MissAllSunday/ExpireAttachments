@@ -129,3 +129,28 @@ function expire_attachments_settings(&$return_config = false)
 			}
 		}
 	}
+
+	function editAttachmentDate($id, $date)
+	{
+		global $modSettings, $smcFunc;
+
+		if (empty($id) || empty($date))
+			return false;
+
+		// Calculate the new date
+		if ($date != 'forever')
+			$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods'. $date .'_number'] .' '. strtolower($date));
+
+		else
+			$expire_date = 0;
+
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}attachments
+			SET expire_date = {int:expire_date}
+			WHERE id_attach = {int:id}',
+			array(
+				'expire_date' => (int) $expire_date,
+				'id' => $id,
+			)
+		);
+	}

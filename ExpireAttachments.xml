@@ -28,6 +28,21 @@
 
 	<file name="$sourcedir/Post.php">
 		<operation>
+			<search position="replace"><![CDATA[// Check if they are trying to delete any current attachments....]]></search>
+			<add><![CDATA[// Expire Attachments mod
+	if (!empty($modSettings['ExAt_setting_enable']) && isset($_POST['attach_del']))
+	{
+		require_once($sourcedir .'/ExpireAttachments.php');
+		$to_edit_expire = array();
+		foreach ($_POST['attach_del'] as $file => $expireID)
+			if (isset($_POST['attachment_expire'][$file - 1]) && !empty($_POST['attachment_expire'][$file - 1]))
+					editAttachmentDate($expireID, $_POST['attachment_expire'][$file - 1]);
+	}
+	// Expire Attachments mod end
+
+	// Check if they are trying to delete any current attachments....]]></add>
+		</operation>
+		<operation>
 			<search position="replace"><![CDATA[SELECT IFNULL(size, -1) AS filesize, filename, id_attach, approved]]></search>
 			<add><![CDATA[SELECT IFNULL(size, -1) AS filesize, filename, id_attach, approved, expire_date,]]></add>
 		</operation>

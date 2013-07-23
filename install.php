@@ -33,4 +33,25 @@
 			'update',
 			null
 		);
+
+		// Create the scheduled task
+			$smcFunc['db_insert'](
+				'insert',
+				'{db_prefix}scheduled_tasks',
+				array(
+					'id_task' => 'int',
+					'next_time' => 'int',
+					'time_offset' => 'int',
+					'time_regularity' => 'int',
+					'time_unit' => 'string',
+					'disabled' => 'int',
+					'task' => 'string',
+				),
+				array(
+					0, 0, 0, 1, 'd', 0, 'attachments_expire_date',
+				),
+				array(
+					'id_task',
+				)
+			);
 	}

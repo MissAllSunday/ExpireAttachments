@@ -20,6 +20,7 @@
 		<code>remove.php</code>
 		ExpireAttachments
 		<remove-file name="$sourcedir/ExpireAttachments.php" />
+		<remove-file name="$languagedir/ExpireAttachments.english.php" />
 		<modification reverse="true">ExpireAttachments.xml</modification>
 	</uninstall>
 

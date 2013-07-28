@@ -17,6 +17,7 @@ $txt['ExAt_modName'] = 'Expire Attachments mod';
 $txt['ExAt_ui_selectDate'] = 'Select expiration date';
 $txt['ExAt_ui_title'] = ' Expiration date: ';
 $txt['ExAt_ui_showDate'] = 'This attachment will expire in ';
+$txt['EXAT_ui_legend'] = '[Attachment expired]';
 
 // Admin
 $txt['ExAt_setting_pageTitle'] = 'Attachments expiration date';

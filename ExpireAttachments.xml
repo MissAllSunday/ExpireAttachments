@@ -275,7 +275,7 @@
 			<add><![CDATA[// Deletes attachments based on its expire dates
 function scheduled_attachments_expire_date()
 {
-	global $modSettings, $smcFunc, $sourcedir;
+	global $modSettings, $smcFunc, $sourcedir, $txt;
 
 	// The mod must be enable
 	if (empty($modSettings['ExAt_setting_enable']))
@@ -316,7 +316,19 @@ function scheduled_attachments_expire_date()
 		'id_attach' => $remove_ids,
 	);
 
-	removeAttachments($attachmentQuery);
+	$messages = removeAttachments($attachmentQuery);
+
+	// Update the messages to reflect the change.
+	if (!empty($messages))
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}messages
+			SET body = CONCAT(body, {string:notice})
+			WHERE id_msg IN ({array_int:messages})',
+			array(
+				'messages' => $messages,
+				'notice' => $txt['EXAT_ui_legend'],
+			)
+		);
 
 	return true;
 }

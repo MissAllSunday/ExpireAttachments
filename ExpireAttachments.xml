@@ -335,7 +335,7 @@ function scheduled_attachments_expire_date()
 					WHERE id_msg = {int:m}',
 					array(
 						'm' => $message,
-						'notice' => '<br />' . (!empty($name) ? sprintf('%s expired', $name) : 'expired'),
+						'notice' => '<br />' . (!empty($name) ? sprintf($txt['EXAT_ui_legend_custom'], $name) : $txt['EXAT_ui_legend']),
 					)
 				);
 	}

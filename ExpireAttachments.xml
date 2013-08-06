@@ -316,14 +316,17 @@ function scheduled_attachments_expire_date()
 	// Got some, yay!
 	require_once($sourcedir . '/ManageAttachments.php');
 
-	$attachmentQuery = array(
-		'attachment_type' => 0,
-		'id_attach' => $remove_ids,
-	);
-
-	removeAttachments($attachmentQuery, 'messages', false, true);
-
 	if (!empty($file_names))
+	{
+		// Build the array
+		$attachmentQuery = array(
+			'attachment_type' => 0,
+			'id_attach' => $remove_ids,
+		);
+
+		// Delete the actual attachments
+		removeAttachments($attachmentQuery, 'messages', false, true);
+
 		foreach ($file_names as $message => $file)
 			foreach ($file as $id => $name)
 				$smcFunc['db_query']('', '
@@ -335,6 +338,7 @@ function scheduled_attachments_expire_date()
 						'notice' => '<br />' . (!empty($name) ? sprintf('%s expired', $name) : 'expired'),
 					)
 				);
+	}
 
 	return true;
 }

@@ -290,9 +290,10 @@ function scheduled_attachments_expire_date()
 
 	// Did someone ordered a heavy query?
 	$request = $smcFunc['db_query']('', '
-		SELECT id_attach, filename
+		SELECT id_attach, filename, id_msg
 		FROM {db_prefix}attachments
-		WHERE expire_date BETWEEN {int:range_to} AND {int:range_from}',
+		WHERE expire_date BETWEEN {int:range_to} AND {int:range_from}
+			AND attachment_type = 0',
 		array(
 			'range_to' => $range_to,
 			'range_from' => $range_from,
@@ -303,7 +304,7 @@ function scheduled_attachments_expire_date()
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
 		$remove_ids[] = $row['id_attach'];
-		$file_names[$row['id_attach']] = $row['filename'];
+		$file_names[$row['id_msg']][$row['id_attach']] = $row['filename'];
 	}
 
 	$smcFunc['db_free_result']($request);
@@ -320,20 +321,20 @@ function scheduled_attachments_expire_date()
 		'id_attach' => $remove_ids,
 	);
 
-	$messages = removeAttachments($attachmentQuery);
+	removeAttachments($attachmentQuery, 'messages', false, true);
 
-	// Update the messages to reflect the change. Do it one by one since we want to print the filename...
-	if (!empty($messages))
-		foreach ($messages as $m)
-			$smcFunc['db_query']('', '
-				UPDATE {db_prefix}messages
-				SET body = CONCAT(body, {string:notice})
-				WHERE id_msg = {int:m}',
-				array(
-					'm' => $m,
-					'notice' => (!empty($file_names[$m]) ? sprintf($txt['EXAT_ui_legend_custom'], $file_names[$m]) : $txt['EXAT_ui_legend']),
-				)
-			);
+	if (!empty($file_names))
+		foreach ($file_names as $message => $file)
+			foreach ($file as $id => $name)
+				$smcFunc['db_query']('', '
+					UPDATE {db_prefix}messages
+					SET body = CONCAT(body, {string:notice})
+					WHERE id_msg = {int:m}',
+					array(
+						'm' => $message,
+						'notice' => '<br />' . (!empty($name) ? sprintf('%s expired', $name) : 'expired'),
+					)
+				);
 
 	return true;
 }

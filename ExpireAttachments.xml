@@ -281,6 +281,8 @@ function scheduled_attachments_expire_date()
 	if (empty($modSettings['ExAt_setting_enable']))
 		return true;
 
+	loadLanguage('ExpireAttachments');
+
 	$remove_ids = array();
 	$file_names = array();
 

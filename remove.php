@@ -19,6 +19,7 @@ $hooks = array(
 	'integrate_admin_include' => '$sourcedir/ExpireAttachments.php',
 	'integrate_admin_areas' => 'expire_attachments_admin',
 	'integrate_modify_modifications' => 'expire_attachments_modify_modifications',
+	'integrate_menu_buttons' => 'expire_attachments_care',
 );
 
 $call = 'remove_integration_function';

@@ -101,56 +101,65 @@ function expire_attachments_settings(&$return_config = false)
 	prepareDBSettingContext($config_vars);
 }
 
-	function expire_attachments_timeElapsed($ptime)
+function expire_attachments_timeElapsed($ptime)
+{
+	global $txt;
+
+	$etime = $ptime - time();
+
+	if ($etime < 1)
+		return $txt['ExAt_setting_now'];
+
+	$a = array(
+		12 * 30 * 24 * 60 * 60	=> $txt['ExAt_setting_year'],
+		30 * 24 * 60 * 60		=> $txt['ExAt_setting_month'],
+		24 * 60 * 60			=> $txt['ExAt_setting_day'],
+		60 * 60					=> $txt['ExAt_setting_hour'],
+		60						=> $txt['ExAt_setting_minute'],
+		1						=> $txt['ExAt_setting_second']
+	);
+
+	foreach ($a as $secs => $str)
 	{
-		global $txt;
-
-		$etime = $ptime - time();
-
-		if ($etime < 1)
-			return $txt['ExAt_setting_now'];
-
-		$a = array(
-			12 * 30 * 24 * 60 * 60	=> $txt['ExAt_setting_year'],
-			30 * 24 * 60 * 60		=> $txt['ExAt_setting_month'],
-			24 * 60 * 60			=> $txt['ExAt_setting_day'],
-			60 * 60					=> $txt['ExAt_setting_hour'],
-			60						=> $txt['ExAt_setting_minute'],
-			1						=> $txt['ExAt_setting_second']
-		);
-
-		foreach ($a as $secs => $str)
+		$d = $etime / $secs;
+		if ($d >= 1)
 		{
-			$d = $etime / $secs;
-			if ($d >= 1)
-			{
-				$r = round($d);
-				return $r . ' ' . $str . ($r > 1 ? $txt['ExAt_setting_s'] .' ' : ' ');
-			}
+			$r = round($d);
+			return $r . ' ' . $str . ($r > 1 ? $txt['ExAt_setting_s'] .' ' : ' ');
 		}
 	}
+}
 
-	function editAttachmentDate($id, $date)
-	{
-		global $modSettings, $smcFunc;
+function editAttachmentDate($id, $date)
+{
+	global $modSettings, $smcFunc;
 
-		if (empty($id) || empty($date))
-			return false;
+	if (empty($id) || empty($date))
+		return false;
 
-		// Calculate the new date
-		if ($date != 'forever')
-			$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods'. $date .'_number'] .' '. strtolower($date));
+	// Calculate the new date
+	if ($date != 'forever')
+		$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods'. $date .'_number'] .' '. strtolower($date));
 
-		else
-			$expire_date = 0;
+	else
+		$expire_date = 0;
 
-		$smcFunc['db_query']('', '
-			UPDATE {db_prefix}attachments
-			SET expire_date = {int:expire_date}
-			WHERE id_attach = {int:id}',
-			array(
-				'expire_date' => (int) $expire_date,
-				'id' => $id,
-			)
-		);
-	}
+	$smcFunc['db_query']('', '
+		UPDATE {db_prefix}attachments
+		SET expire_date = {int:expire_date}
+		WHERE id_attach = {int:id}',
+		array(
+			'expire_date' => (int) $expire_date,
+			'id' => $id,
+		)
+	);
+}
+
+/* DUH! WINNING! */
+function expire_attachments_care(&$dummy)
+{
+	global $context;
+
+	if (isset($context['current_action']) && $context['current_action'] == 'credits')
+		$context['copyrights']['mods'][] = '<a href="http://missallsunday.com" target="_blank" title="Free SMF mods">Expire attachments mod &copy Suki</a>';
+}

@@ -16,7 +16,7 @@ elseif (!defined('SMF'))
 	exit('<b>Error:</b> Cannot install - please verify you put this in the same place as SMF\'s index.php.');
 
 $hooks = array(
-	'integrate_admin_include' => '$sourcedir/ExpireAttachments.php',
+	'integrate_pre_include' => '$sourcedir/ExpireAttachments.php',
 	'integrate_admin_areas' => 'expire_attachments_admin',
 	'integrate_modify_modifications' => 'expire_attachments_modify_modifications',
 	'integrate_menu_buttons' => 'expire_attachments_care', // Yes, a whole hook function for a copyright...

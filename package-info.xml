@@ -9,6 +9,7 @@
 	<install for="2.0 - 2.0.99">
 		<database>install.php</database>
 		<code>hooks.php</code>
+		<readme parsebbc="true">README.md</readme>
 		<require-dir name="Themes" destination="$boarddir">Source files</require-dir>
 		<require-dir name="Sources" destination="$boarddir">Source files</require-dir>
 		<modification>ExpireAttachments.xml</modification>

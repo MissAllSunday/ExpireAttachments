@@ -28,7 +28,7 @@ $txt['ExAt_setting_periodsWeek_number'] = 'The number of periods for the Week pe
 $txt['ExAt_setting_periodsMonth_number'] = 'The number of periods for the Month period.';
 $txt['ExAt_setting_periodsYear_number'] = 'The number of periods for the Year period.';
 $txt['ExAt_setting_enable'] = 'Enable the mod';
-$txt['ExAt_setting_enable_sub'] = 'This sething must be one for the mod to work properly';
+$txt['ExAt_setting_enable_sub'] = 'This setting must be one for the mod to work properly';
 $txt['ExAt_setting_second'] = 'second';
 $txt['ExAt_setting_minute'] = 'minute';
 $txt['ExAt_setting_hour'] = 'hour';
@@ -45,7 +45,7 @@ $txt['ExAt_setting_enableWeek_period']  = 'Enable the Week period';
 $txt['ExAt_setting_enableMonth_period']  = 'Enable the Month period';
 $txt['ExAt_setting_enableYear_period']  = 'Enable the Year period';
 $txt['ExAt_setting_enableForever_period']  = 'The attachment doesn\'t expire';
-$txt['ExAt_setting_enableForever_period_sub'] = 'If this setting is enable, a new permission wil be set to let users bypass the expiration date altogether.'; 
+$txt['ExAt_setting_enableForever_period_sub'] = 'If this setting is enable, a new permission will be set to let users bypass the expiration date altogether.'; 
 $txt['ExAt_setting_availablePermissions'] = 'The current available permissions:';
 
 // Permissions

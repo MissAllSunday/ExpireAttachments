@@ -96,11 +96,10 @@
 		<operation>
 			<search position="replace"><![CDATA[if (createAttachment($attachmentOptions))]]></search>
 			<add><![CDATA[// Expire Attachments mod
+			$attachmentOptions['expire_date'] = 0;
+
 			if (!empty($modSettings['ExAt_setting_enable']) && !empty($_REQUEST['expire_date'. $n]))
 			{
-				// Set the var
-				$attachmentOptions['expire_date'] = 0;
-
 				// Do this only if the selected option wasn't "forever"
 				if ($_REQUEST['expire_date'. $n] != 'forever')
 				{

@@ -22,7 +22,5 @@ $hooks = array(
 	'integrate_menu_buttons' => 'expire_attachments_care', // Yes, a whole hook function for a copyright...
 );
 
-$call = 'add_integration_function';
-
 foreach ($hooks as $hook => $function)
-	$call($hook, $function);
+	add_integration_function($hook, $function);

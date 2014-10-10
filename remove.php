@@ -22,9 +22,6 @@ $hooks = array(
 	'integrate_menu_buttons' => 'expire_attachments_care',
 );
 
-$call = 'remove_integration_function';
-
-foreach ($hooks as $hook => $function)
-	$call($hook, $function);
-
 // Yes... a whole file just for replacing "add" with "remove"... I'm glad you finally passed the newbie phase where you didn't know how to remove a hook manually. This is for those of us who haven't figured it out yet.
+foreach ($hooks as $hook => $function)
+	remove_integration_function($hook, $function);

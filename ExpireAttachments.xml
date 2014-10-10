@@ -65,15 +65,14 @@
 
 	// Expire Attachments mod
 	$context['ExAt_list'] = '';
+	loadLanguage('ExpireAttachments');
+	$context['ExAt_availableOptions'] = array();
+	$context['ExAt_periods'] = array('Day', 'Week', 'Month', 'Year');
 
 	if (!empty($modSettings['ExAt_setting_enable']))
 	{
-		loadLanguage('ExpireAttachments');
 		$context['ExAt_list'] .= '<select name="expire_date0" id="expire_date1">';
 
-		// Set the hardcoded periods
-		$context['ExAt_periods'] = array('Day', 'Week', 'Month', 'Year');
-		$context['ExAt_availableOptions'] = array();
 
 		// Add each option if the user has the permission to use it
 		foreach  ($context['ExAt_periods'] as $period)

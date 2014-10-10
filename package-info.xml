@@ -19,7 +19,7 @@
 	<uninstall for="2.0 - 2.0.99">
 		<database>install.php</database>
 		<code>remove.php</code>
-		ExpireAttachments
+		<code>removeScheduledTask.php</code>
 		<remove-file name="$sourcedir/ExpireAttachments.php" />
 		<remove-file name="$languagedir/ExpireAttachments.english.php" />
 		<remove-file name="$languagedir/ExpireAttachments.english-utf8.php" />

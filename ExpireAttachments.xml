@@ -44,7 +44,7 @@
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[SELECT IFNULL(size, -1) AS filesize, filename, id_attach, approved]]></search>
-			<add><![CDATA[SELECT IFNULL(size, -1) AS filesize, filename, id_attach, approved, expire_date,]]></add>
+			<add><![CDATA[SELECT IFNULL(size, -1) AS filesize, filename, id_attach, approved, expire_date]]></add>
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[$context['current_attachments'][] = array(

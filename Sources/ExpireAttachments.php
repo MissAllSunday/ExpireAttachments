@@ -150,7 +150,7 @@ function editAttachmentDate($id, $date)
 		WHERE id_attach = {int:id}',
 		array(
 			'expire_date' => (int) $expire_date,
-			'id' => $id,
+			'id' => (int) $id,
 		)
 	);
 }

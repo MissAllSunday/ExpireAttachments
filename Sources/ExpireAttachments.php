@@ -138,7 +138,7 @@ function editAttachmentDate($id, $date)
 		return false;
 
 	// Calculate the new date and make sure we have a valid entry.
-	if ($date != 'forever' && isset($modSettings['ExAt_setting_periods'. $date .'_number']) && allowedTo('ExAt_'. $date)
+	if ($date != 'forever' && isset($modSettings['ExAt_setting_periods'. $date .'_number']) && allowedTo('ExAt_'. $date))
 		$expire_date = strtotime('+'. $modSettings['ExAt_setting_periods'. $date .'_number'] .' '. strtolower($date));
 
 	else

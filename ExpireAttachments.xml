@@ -285,8 +285,8 @@ function scheduled_attachments_expire_date()
 	$file_names = array();
 
 	// Since we're way beyond abusing strtotime()...
-	$range_to = time() - (12*60*60);
-	$range_from = time() + (12*60*60);
+  	$range_to = 1;
+	$range_from = time();
 
 	// Did someone ordered a heavy query?
 	$request = $smcFunc['db_query']('', '

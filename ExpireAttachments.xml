@@ -98,7 +98,7 @@
 			<add><![CDATA[// Expire Attachments mod
 			$attachmentOptions['expire_date'] = 0;
 
-			if (!empty($modSettings['ExAt_setting_enable']) && !empty($_REQUEST['expire_date'. $n]) && isset($modSettings['ExAt_setting_periods'. $_REQUEST['expire_date'. $n]]) && allowedTo('ExAt_'. $_REQUEST['expire_date'. $n]))
+			if (!empty($modSettings['ExAt_setting_enable']) && !empty($_REQUEST['expire_date'. $n]) && isset($modSettings['ExAt_setting_periods'. $_REQUEST['expire_date'. $n].'_number']) && allowedTo('ExAt_'. $_REQUEST['expire_date'. $n]))
 			{
 				// Do this only if the selected option wasn't "forever"
 				if ($_REQUEST['expire_date'. $n] != 'forever')
